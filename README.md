@@ -32,7 +32,7 @@ Para realizar esta tarea hemos empleado el conjunto de datos desde kaggle "Chest
   
 El diagnóstico médico a través de imágenes radiográficas constituye un pilar fundamental en la detección temprana de diversas patologías. Entre estas, la neumonía destaca como una de las principales causas de mortalidad, especialmente en países en vías de desarrollo (Organización Mundial de la Salud [OMS], 2023). Las radiografías de tórax se consideran una de las herramientas más efectivas para identificar esta enfermedad; sin embargo, su interpretación suele verse afectada por limitaciones técnicas como el ruido gaussiano, el bajo contraste y la presencia de artefactos que dificultan la correcta visualización de los tejidos pulmonares (Litjens et al., 2017).
 
-<img src="NEUMONIA.PNG" alt="NEUMONÍA" style="width: 700px;"/>
+<img src="NEUMONIA .png" alt="NEUMONÍA" style="width: 700px;"/>
 <center>Figura 1: NEUMONÍA</center>
 
 <p></p>
