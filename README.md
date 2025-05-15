@@ -10,7 +10,7 @@
   - Joaquin Fernando Arèvalo Alcàntara
 - **Fecha:** Enero 2025
 
-![Radiografía de Tórax](https://example.com/ruta-a-tu-imagen.jpg)  
+![Radiografía de Tórax](NEUMONIA .png)  
 *Ejemplo de radiografía de tórax procesada (reemplazar con tu imagen)*
 
 ## Resumen
