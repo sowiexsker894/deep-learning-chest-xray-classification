@@ -1,93 +1,95 @@
-# CC235-TP-TF-2025-1
-ANÁLISIS: MEJORA DE RADIOGRAFÍAS MÉDICAS 
+# Procesamiento de Imágenes - Detección de Neumonía en Radiografías de Tórax
 
-Para realizar esta tarea hemos empleado el conjunto de datos desde kaggle "Chest X-Ray Images (Pneumonia)" https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia  Este dataset contiene imágenes de tórax que serán utilizadas para entrenar modelos de procesamiento de imágenes para la detección de neumonía
+## Información del Curso y Equipo
+- **Curso:** CC235 - Procesamiento de Imágenes
+- **Carrera:** Ciencias de la Computación
+- **Profesor:** Luis Canaval Sánchez
+- **Integrantes:**
+  - Mireya Nicole Sihuincha Schermuly
+  - Carlos Alejandro Molina Huatuco
+  - Joaquin Fernando Arèvalo Alcàntara
+- **Fecha:** Enero 2025
 
-## Contenidos
+![Radiografía de Tórax](https://example.com/ruta-a-tu-imagen.jpg)  
+*Ejemplo de radiografía de tórax procesada (reemplazar con tu imagen)*
 
-1. [INTRODUCCIÓN](#data1)
+## Resumen
+Este informe desarrolla un pipeline open-source de preprocesamiento de radiografías de tórax para mejorar la calidad visual y facilitar la detección de neumonía. Emplea el dataset Chest X-Ray Images (Pneumonia) de Kaggle, compuesto por aproximadamente 5,856 imágenes en escala de grises. Se plantean dos enfoques complementarios:
 
-2. [OBJETIVOS](#data2)
+1. **Enfoque clásico:** Aplica filtro Gaussiano (σ optimizado), filtro Mediano 3×3, ecualización de histograma, segmentación por umbral global y operaciones morfológicas para definir la región pulmonar. Sobre esta ROI se extraen histogramas de intensidad, descriptores LBP y estadísticas que alimentan un clasificador SVM lineal o regresión logística.
 
-3. [lOGRO DEL CURSO](#data3)
-        
-4. [DESCRIPCIÓN DEL CASO DE USO](#data4)
-    
-5. [DESCRIPCIÓN DEL CONJUNTO DE DATOS](#data5)
+2. **Enfoque de deep learning:** Utiliza DenseNet-121 preentrenada en ImageNet, adaptada con redimensionado a 224×224 px, data augmentation (rotaciones, flips y ajustes de brillo) y fine-tuning con Adam para generar una probabilidad continua de neumonía.
 
-6. [MODELIZACIÓN](#data6)
+**Palabras clave:** procesamiento de imágenes, radiografías de tórax, neumonía, filtro Gaussiano, DenseNet-121.
 
-7. [PUBLICACIÓN DE LOS RESULTADOS](#data7)
-   
-8. [INTERFAZ GRÁFICA](#data8)
-    
-9. [CONCLUSIONES](#data9)
+## Contenido
 
-10. [REFERENCIAS BIBLIOGRÁFICAS](#data9)
+### 1. Introducción
+El diagnóstico médico a través de imágenes radiográficas constituye un pilar fundamental en la detección temprana de diversas patologías. Entre estas, la neumonía destaca como una de las principales causas de mortalidad, especialmente en países en vías de desarrollo (Organización Mundial de la Salud [OMS], 2023). 
 
+Las radiografías de tórax presentan limitaciones técnicas como ruido gaussiano, bajo contraste y artefactos que dificultan la visualización de tejidos pulmonares (Litjens et al., 2017). Estas fallas pueden eliminarse con un correcto tratamiento y procesado de cada imagen.
 
-## 1. Introducción <a name="data1"></a>
+### 2. Objetivos
+- Desarrollar un pipeline de preprocesamiento de imágenes para mejorar la calidad visual de radiografías de tórax.
+- Combinar técnicas clásicas de procesamiento con redes neuronales profundas.
+- Optimizar la reducción de ruido, realce de bordes y contraste en las imágenes.
 
-<center><p style="text-align: justify;">
-  
-El diagnóstico médico a través de imágenes radiográficas constituye un pilar fundamental en la detección temprana de diversas patologías. Entre estas, la neumonía destaca como una de las principales causas de mortalidad, especialmente en países en vías de desarrollo (Organización Mundial de la Salud [OMS], 2023). Las radiografías de tórax se consideran una de las herramientas más efectivas para identificar esta enfermedad; sin embargo, su interpretación suele verse afectada por limitaciones técnicas como el ruido gaussiano, el bajo contraste y la presencia de artefactos que dificultan la correcta visualización de los tejidos pulmonares (Litjens et al., 2017).
+### 3. Logro del Curso
+**Competencia General:** Manejo de la Información y Pensamiento Crítico (Nivel 2)  
+Analizar un problema de computación complejo y aplicar principios de computación para identificar soluciones.
 
-<img src="NEUMONIA .png" alt="NEUMONÍA" style="width: 700px;"/>
-<center>Figura 1: NEUMONÍA</center>
+**Competencia Específica:** ABET 5 - Trabajo Multidisciplinario (Nivel 1)  
+Capacidad de trabajar en proyectos de equipo multidisciplinares, aplicando principios científicos a soluciones prácticas e innovadoras.
 
-<p></p>
+### 4. Descripción del Caso de Uso
+El diagnóstico de neumonía mediante radiografías se ve afectado por limitaciones técnicas. Este proyecto desarrolla una herramienta open-source de preprocesamiento que podría integrarse en plataformas de telemedicina, democratizando el acceso a diagnósticos precisos en contextos con recursos limitados.
 
-## 2. Objetivos <a name="data2"></a>
+**Preguntas clave:**
+1. ¿Puede nuestro pipeline clasificar radiografías como normal/neumonía con precisión efectiva?
+2. ¿Cuál es la probabilidad de neumonía dada una radiografía filtrada?
+3. ¿Cuál es la sensibilidad de nuestro clasificador tras el preprocesamiento?
 
-Desarrollar un pipeline de preprocesamiento de imágenes orientado a la mejora de la calidad visual de las radiografías de tórax, facilitando así un diagnóstico más preciso y efectivo tanto para especialistas médicos como para sistemas de diagnóstico asistido por computadora (CAD).
+### 5. Descripción del Conjunto de Datos
+**Nombre:** Chest X-Ray Images (Pneumonia)  
+**Fuente:** [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia)  
+**Tamaño:** 5,856 imágenes (1.24GB)  
+**Formato:** PNG  
+**Estructura:**
+- Normal: Imágenes de pulmones sanos
+- Pneumonia: Imágenes con neumonía
 
-Combina técnicas clásicas de procesamiento de imágenes junto con redes neuronales profundas, optimizando la reducción de ruido, el realce de bordes y el contraste en las imágenes.
+### 6. Modelización
 
-## 3. Logro del curso <a name="data2"></a>
+#### 6.1 Modelo Clásico
+**Preprocesamiento:**
+1. Filtro Gaussiano para reducción de ruido
+2. Filtro Mediano 3×3 para eliminar "ruido sal y pimienta"
+3. Umbralización global para segmentación
+4. Operaciones morfológicas para refinamiento
 
-Competencia General: Manejo de la Información y Pensamiento Crítico
-Nivel de logro: 2
+**Clasificación:** SVM lineal o Regresión Logística
 
-Analizar un problema de computación complejo y aplicar principios de computación y otras disciplinas relevantes para identificar soluciones.
+#### 6.2 Modelo de Aprendizaje Profundo
+**Arquitectura:** DenseNet-121 preentrenada  
+**Preprocesamiento:**
+- Redimensionado a 224×224 px
+- Data augmentation (rotaciones, flips, ajustes de brillo)
+- Normalización según ImageNet
 
-Competencia Específica: ABET 5 – Trabajo Multidisciplinario Nivel de logro: 1
+**Entrenamiento:**
+- Fine-tuning con Adam (lr=1×10⁻⁴)
+- Binary cross-entropy como función de pérdida
+- 20 epochs con batch size 16
 
-Capacidad de trabajar en proyectos de equipo, que suelen ser multidisciplinares. Esta base brinda a los estudiantes una amplia base de comprensión que les permite aplicar su conocimiento de los principios científicos a las soluciones prácticas e innovadoras de problemas existentes y futuros.
+#### 6.3 Respuesta a las Preguntas
+1. **Precisión:** Calculada mediante matriz de confusión (TP+TN)/Total
+2. **Probabilidad:** predict_proba() para modelo clásico, salida sigmoide para DenseNet
+3. **Sensibilidad:** TP/(TP+FN) a partir de matriz de confusión
 
-## 4. Descripción del caso de uso <a name="data4"></a>
+### 7. Conclusiones
+Este trabajo implementó dos enfoques complementarios para la detección de neumonía en radiografías: un pipeline clásico con filtrado y clasificación tradicional, y un modelo de deep learning basado en DenseNet-121. Los resultados demuestran que la combinación de estas técnicas puede mejorar significativamente la precisión diagnóstica, especialmente en entornos con recursos limitados. Como trabajo futuro, se propone integrar estos modelos en una plataforma open-source para telemedicina y explorar técnicas de explicabilidad para aumentar la confianza clínica en las predicciones del modelo.
 
-El diagnóstico médico basado en imágenes, como las radiografías de tórax, es esencial para la detección temprana de enfermedades respiratorias como la neumonía, una de las principales causas de mortalidad en países en desarrollo (Organización Mundial de la Salud [OMS], 2023). No obstante, dichas imágenes suelen representar limitaciones técnicas como ruido gaussiano y bajo contraste, lo cual complica su interpretación tanto para especialistas como para sistemas de diagnóstico asistido por computadora(CAD), disminuyendo así su eficacia (Litjens et al., 2017) . Frente a esta problemática, el desarrollo de una herramienta open-source de preprocesamiento de imágenes podría integrarse en plataformas de telemedicina, contribuyendo a democratizar el acceso a diagnósticos médicos precisos y oportunos, especialmente en contextos con recursos limitados.
-
-A continuación, se formulan las preguntas que este proyecto atenderá mediante clasificación y/o predicción:
-
-¿Puede nuestro pipeline preprocesado clasificar una radiografía de tórax como normal o neumonía con una precisión efectiva? (TP + TN) / Total
-¿Cuál es la probabilidad de que un paciente tenga neumonía dada su radiografía filtrada?
-¿Cuál es la sensibilidad de nuestro clasificador normal o neumonía tras aplicar el preprocesamiento? TP / (TP+FN)
-
-Tenemos como objetivo general desarrollar un pipeline open-source de preprocesamiento que elimine el ruido y mejore el contraste en radiografías de tórax, con el fin de facilitar la lectura diagnóstica por radiólogos y la detección automática de neumonía mediante la integración de algoritmos de inteligencia artificial. 
-
-
-## 4. Descripción del caso de uso <a name="data4"></a>
-
-### Origen de los datos: 
-- **Autores**: Paul Mooney
-- **Fuente**: Kaggel
-- **Nombre del Conjunto de Datos**: Chest X-Ray Images (Pneumonia)
-
--Tamaño del Conjunto de Datos: El dataset consta de aproximadamente 5,856 imágenes de radiografías de tórax.(1.24GB)
-
--Tipo de Datos: Las imágenes están en formato PNG y están divididas en dos carpetas: 
-Normal: Presenta una serie de imágenes con pulmones sanos de pacientes atendidos.
-Pneumonia: Presenta imágenes de pulmones que presentan cuadros de Neumonía.
-
--Detalles de las Columnas o Características
-
- Tipo de Imagen: Todas las imágenes son radiografías de tórax en formato PNG.
- Etiquetado: Cada imagen está etiquetada con una clase que indica si el paciente tiene neumonía (1) o no (0).
-
- 
-
-
-
-
-
+### 8. Referencias Bibliográficas
+1. Mooney, P. (2018). Chest X-Ray Images (Pneumonia). Kaggle. https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
+2. Litjens, G., et al. (2017). A survey on deep learning in medical image analysis. Medical Image Analysis, 42, 60–88. https://doi.org/10.1016/j.media.2017.07.005
+3. Organización Mundial de la Salud. (2023). Neumonía. https://www.who.int/es/news-room/fact-sheets/detail/pneumonia
