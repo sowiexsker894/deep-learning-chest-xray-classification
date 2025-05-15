@@ -10,7 +10,7 @@
   - Joaquin Fernando Arèvalo Alcàntara
 - **Fecha:** Enero 2025
 ---
-![Radiografía de Tórax](https://github.com/sowiexsker894/CC235-TP-TF-2025-1/edit/main/README.md)  
+![Radiografía de Tórax]()  
 *Ejemplo de radiografía de tórax procesada ()*
 
 ## 📌Resumen
