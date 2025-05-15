@@ -10,8 +10,8 @@
   - Joaquin Fernando Arèvalo Alcàntara
 - **Fecha:** Enero 2025
 ---
-![Radiografía de Tórax](NEUMONIA .png)  
-*Ejemplo de radiografía de tórax procesada (reemplazar con tu imagen)*
+![Radiografía de Tórax](https://github.com/sowiexsker894/CC235-TP-TF-2025-1/edit/main/README.md)  
+*Ejemplo de radiografía de tórax procesada ()*
 
 ## 📌Resumen
 Este informe desarrolla un pipeline open-source de preprocesamiento de radiografías de tórax para mejorar la calidad visual y facilitar la detección de neumonía. Emplea el dataset Chest X-Ray Images (Pneumonia) de Kaggle, compuesto por aproximadamente 5,856 imágenes en escala de grises. Se plantean dos enfoques complementarios:
@@ -43,6 +43,7 @@ Analizar un problema de computación complejo y aplicar principios de computaci�
 
 **Competencia Específica:** ABET 5 - Trabajo Multidisciplinario (Nivel 1)  
 Capacidad de trabajar en proyectos de equipo multidisciplinares, aplicando principios científicos a soluciones prácticas e innovadoras.
+
 ---
 
 ### 4. 🗺️  Descripción del Caso de Uso
@@ -94,6 +95,7 @@ El diagnóstico de neumonía mediante radiografías se ve afectado por limitacio
 ---
 ### 7. ⚜️ Conclusiones
 Este trabajo implementó dos enfoques complementarios para la detección de neumonía en radiografías: un pipeline clásico con filtrado y clasificación tradicional, y un modelo de deep learning basado en DenseNet-121. Los resultados demuestran que la combinación de estas técnicas puede mejorar significativamente la precisión diagnóstica, especialmente en entornos con recursos limitados. Como trabajo futuro, se propone integrar estos modelos en una plataforma open-source para telemedicina y explorar técnicas de explicabilidad para aumentar la confianza clínica en las predicciones del modelo.
+
 ---
 ### 8. 🔆 Referencias Bibliográficas
 1. Mooney, P. (2018). Chest X-Ray Images (Pneumonia). Kaggle. https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
