@@ -8,7 +8,7 @@
   - Mireya Nicole Sihuincha Schermuly
   - Carlos Alejandro Molina Huatuco
   - Joaquin Fernando Arèvalo Alcàntara
-- **Fecha:** Enero 2025
+- **Fecha:** Mayo 2025
 ---
 ![Radiografía de Tórax]()  
 *Ejemplo de radiografía de tórax procesada ()*
