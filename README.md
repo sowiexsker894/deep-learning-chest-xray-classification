@@ -10,7 +10,7 @@
   - Joaquin Fernando Arèvalo Alcàntara
 - **Fecha:** Mayo 2025
 ---
-![Radiografía de Tórax]()  
+![Radiografía de Tórax](imagen_2025-05-07_161158968.png)  
 *Ejemplo de radiografía de tórax procesada ()*
 
 ## 📌Resumen
