@@ -29,6 +29,24 @@ Utiliza DenseNet-121 preentrenada en ImageNet, adaptada con redimensionado a 224
 
 ---
 
+## 📁 Estructura del Proyecto
+
+```
+CC235-TP-TF-2025-1/
+├── Código fuente/
+│   ├── Modeloclásico (1).ipynb          # Implementación del modelo clásico con SVM
+│   └── ProcesamientoImagenesFinal_ModeloProfundo (1).ipynb  # Modelo DenseNet-121
+├── Dataset/
+│   └── chest_xray/                      # Dataset completo de radiografías
+│       ├── test/                        # Conjunto de prueba
+│       ├── train/                       # Conjunto de entrenamiento
+│       └── val/                         # Conjunto de validación
+├── imagenesreadme/
+│   ├── imagen_2025-05-07_161158968.png  # Imagen de ejemplo
+│   └── NEUMONIA .png                    # Imagen de referencia
+└── README.md                            # Documentación del proyecto
+```
+
 ## 📚 Contenido
 
 ### 1. 📖 Introducción
@@ -65,10 +83,31 @@ El diagnóstico de neumonía mediante radiografías se ve afectado por limitacio
 **Nombre:** Chest X-Ray Images (Pneumonia)  
 **Fuente:** [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia)  
 **Tamaño:** 5,856 imágenes (1.24GB)  
-**Formato:** PNG  
-**Estructura:**
-- **Normal:** Imágenes de pulmones sanos
-- **Pneumonia:** Imágenes con neumonía
+**Formato:** JPEG  
+**Estructura del Dataset:**
+```
+Dataset/
+└── chest_xray/
+    ├── test/
+    │   ├── NORMAL/          # 234 imágenes de pulmones sanos
+    │   └── PNEUMONIA/       # 390 imágenes con neumonía
+    ├── train/
+    │   ├── NORMAL/          # 1,341 imágenes de pulmones sanos
+    │   └── PNEUMONIA/       # 3,875 imágenes con neumonía
+    └── val/
+        ├── NORMAL/          # 8 imágenes de pulmones sanos
+        └── PNEUMONIA/       # 8 imágenes con neumonía
+```
+
+**Distribución de Clases:**
+- **NORMAL:** 1,583 imágenes (pulmones sanos)
+- **PNEUMONIA:** 4,273 imágenes (neumonía bacteriana y viral)
+- **Total:** 5,856 imágenes
+
+**División del Dataset:**
+- **Train:** 5,216 imágenes (89.1%)
+- **Test:** 624 imágenes (10.7%)
+- **Validation:** 16 imágenes (0.3%)
 
 ### 6. ▶️ Modelización
 
