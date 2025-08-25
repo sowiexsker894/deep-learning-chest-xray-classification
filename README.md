@@ -2,7 +2,7 @@
 
 ## 📋 Course and Team Information
 - **Course:** CC235 - Image Processing
-- **Professor:** Luis Canaval Sánchez
+- **Professor:** Luis Canaval S. 
 - **Date:** May 2025
 
 ---
@@ -10,14 +10,14 @@
 ![Chest X-ray](imagen_2025-05-07_161158968.png)  
 *Example of processed chest X-ray*
 
-## 📌 Abstract
+## Abstract
 
 This report develops an open-source preprocessing pipeline for chest X-rays to improve visual quality and facilitate pneumonia detection. It employs the Chest X-Ray Images (Pneumonia) dataset from Kaggle, composed of approximately 5,856 grayscale images. Two complementary approaches are proposed:
 
 ### 🔬 Classical Approach
 Applies Gaussian filter (optimized σ), 3×3 Median filter, histogram equalization, global threshold segmentation, and morphological operations to define the pulmonary region. On this ROI, intensity histograms, LBP descriptors, and statistics are extracted to feed a linear SVM classifier or logistic regression.
 
-### 🧠 Deep Learning Approach
+### Deep Learning Approach
 Uses DenseNet-121 pretrained on ImageNet, adapted with resizing to 224×224 px, data augmentation (rotations, flips, and brightness adjustments) and fine-tuning with Adam to generate a continuous pneumonia probability.
 
 **Keywords:** image processing, chest X-rays, pneumonia, Gaussian filter, DenseNet-121.
@@ -42,7 +42,7 @@ CC235-TP-TF-2025-1/
 └── README.md                            # Project documentation
 ```
 
-## 📚 Content
+## Content
 
 ### 1. 📖 Introduction
 
@@ -104,7 +104,7 @@ Dataset/
 - **Test:** 624 images (10.7%)
 - **Validation:** 16 images (0.3%)
 
-### 6. ▶️ Modeling
+### 6. Modeling
 
 #### 6.1 Classical Model
 
