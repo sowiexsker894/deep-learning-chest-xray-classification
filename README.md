@@ -1,202 +1,197 @@
-# Procesamiento de Imágenes - Detección de Neumonía en Radiografías de Tórax
+# Image Processing - Pneumonia Detection in Chest X-rays
 
-## 📋 Información del Curso y Equipo
-- **Curso:** CC235 - Procesamiento de Imágenes
-- **Carrera:** Ciencias de la Computación
-- **Profesor:** Luis Canaval Sánchez
-- **Integrantes:**
-  - Mireya Nicole Sihuincha Schermuly
-  - Carlos Alejandro Molina Huatuco
-  - Joaquin Fernando Arèvalo Alcàntara
-- **Fecha:** Mayo 2025
+## 📋 Course and Team Information
+- **Course:** CC235 - Image Processing
+- **Professor:** Luis Canaval Sánchez
+- **Date:** May 2025
 
 ---
 
-![Radiografía de Tórax](imagen_2025-05-07_161158968.png)  
-*Ejemplo de radiografía de tórax procesada*
+![Chest X-ray](imagen_2025-05-07_161158968.png)  
+*Example of processed chest X-ray*
 
-## 📌 Resumen
+## 📌 Abstract
 
-Este informe desarrolla un pipeline open-source de preprocesamiento de radiografías de tórax para mejorar la calidad visual y facilitar la detección de neumonía. Emplea el dataset Chest X-Ray Images (Pneumonia) de Kaggle, compuesto por aproximadamente 5,856 imágenes en escala de grises. Se plantean dos enfoques complementarios:
+This report develops an open-source preprocessing pipeline for chest X-rays to improve visual quality and facilitate pneumonia detection. It employs the Chest X-Ray Images (Pneumonia) dataset from Kaggle, composed of approximately 5,856 grayscale images. Two complementary approaches are proposed:
 
-### 🔬 Enfoque Clásico
-Aplica filtro Gaussiano (σ optimizado), filtro Mediano 3×3, ecualización de histograma, segmentación por umbral global y operaciones morfológicas para definir la región pulmonar. Sobre esta ROI se extraen histogramas de intensidad, descriptores LBP y estadísticas que alimentan un clasificador SVM lineal o regresión logística.
+### 🔬 Classical Approach
+Applies Gaussian filter (optimized σ), 3×3 Median filter, histogram equalization, global threshold segmentation, and morphological operations to define the pulmonary region. On this ROI, intensity histograms, LBP descriptors, and statistics are extracted to feed a linear SVM classifier or logistic regression.
 
-### 🧠 Enfoque de Deep Learning
-Utiliza DenseNet-121 preentrenada en ImageNet, adaptada con redimensionado a 224×224 px, data augmentation (rotaciones, flips y ajustes de brillo) y fine-tuning con Adam para generar una probabilidad continua de neumonía.
+### 🧠 Deep Learning Approach
+Uses DenseNet-121 pretrained on ImageNet, adapted with resizing to 224×224 px, data augmentation (rotations, flips, and brightness adjustments) and fine-tuning with Adam to generate a continuous pneumonia probability.
 
-**Palabras clave:** procesamiento de imágenes, radiografías de tórax, neumonía, filtro Gaussiano, DenseNet-121.
+**Keywords:** image processing, chest X-rays, pneumonia, Gaussian filter, DenseNet-121.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 📁 Project Structure
 
 ```
 CC235-TP-TF-2025-1/
-├── Código fuente/
-│   ├── Modeloclásico (1).ipynb          # Implementación del modelo clásico con SVM
-│   └── ProcesamientoImagenesFinal_ModeloProfundo (1).ipynb  # Modelo DenseNet-121
+├── Source Code/
+│   ├── Modeloclásico (1).ipynb          # Classical model implementation with SVM
+│   └── ProcesamientoImagenesFinal_ModeloProfundo (1).ipynb  # DenseNet-121 model
 ├── Dataset/
-│   └── chest_xray/                      # Dataset completo de radiografías
-│       ├── test/                        # Conjunto de prueba
-│       ├── train/                       # Conjunto de entrenamiento
-│       └── val/                         # Conjunto de validación
+│   └── chest_xray/                      # Complete chest X-ray dataset
+│       ├── test/                        # Test set
+│       ├── train/                       # Training set
+│       └── val/                         # Validation set
 ├── imagenesreadme/
-│   ├── imagen_2025-05-07_161158968.png  # Imagen de ejemplo
-│   └── NEUMONIA .png                    # Imagen de referencia
-└── README.md                            # Documentación del proyecto
+│   ├── imagen_2025-05-07_161158968.png  # Example image
+│   └── NEUMONIA .png                    # Reference image
+└── README.md                            # Project documentation
 ```
 
-## 📚 Contenido
+## 📚 Content
 
-### 1. 📖 Introducción
+### 1. 📖 Introduction
 
-El diagnóstico médico a través de imágenes radiográficas constituye un pilar fundamental en la detección temprana de diversas patologías. Entre estas, la neumonía destaca como una de las principales causas de mortalidad, especialmente en países en vías de desarrollo (Organización Mundial de la Salud [OMS], 2023). 
+Medical diagnosis through radiographic imaging constitutes a fundamental pillar in early detection of various pathologies. Among these, pneumonia stands out as one of the main causes of mortality, especially in developing countries (World Health Organization [WHO], 2023).
 
-Las radiografías de tórax presentan limitaciones técnicas como ruido gaussiano, bajo contraste y artefactos que dificultan la visualización de tejidos pulmonares (Litjens et al., 2017). Estas fallas pueden eliminarse con un correcto tratamiento y procesado de cada imagen.
+Chest X-rays present technical limitations such as Gaussian noise, low contrast, and artifacts that hinder the visualization of pulmonary tissues (Litjens et al., 2017). These failures can be eliminated with correct treatment and processing of each image.
 
-### 2. 🎯 Objetivos
+### 2. 🎯 Objectives
 
-- Desarrollar un pipeline de preprocesamiento de imágenes para mejorar la calidad visual de radiografías de tórax
-- Combinar técnicas clásicas de procesamiento con redes neuronales profundas
-- Optimizar la reducción de ruido, realce de bordes y contraste en las imágenes
+- Develop an image preprocessing pipeline to improve visual quality of chest X-rays
+- Combine classical processing techniques with deep neural networks
+- Optimize noise reduction, edge enhancement, and contrast in images
 
-### 3. ✳️ Logro del Curso
+### 3. ✳️ Course Achievement
 
-**Competencia General:** Manejo de la Información y Pensamiento Crítico (Nivel 2)  
-Analizar un problema de computación complejo y aplicar principios de computación para identificar soluciones.
+**General Competency:** Information Management and Critical Thinking (Level 2)  
+Analyze a complex computing problem and apply computing principles to identify solutions.
 
-**Competencia Específica:** ABET 5 - Trabajo Multidisciplinario (Nivel 1)  
-Capacidad de trabajar en proyectos de equipo multidisciplinares, aplicando principios científicos a soluciones prácticas e innovadoras.
+**Specific Competency:** ABET 5 - Multidisciplinary Teamwork (Level 1)  
+Ability to work on multidisciplinary team projects, applying scientific principles to practical and innovative solutions.
 
-### 4. 🗺️ Descripción del Caso de Uso
+### 4. 🗺️ Use Case Description
 
-El diagnóstico de neumonía mediante radiografías se ve afectado por limitaciones técnicas. Este proyecto desarrolla una herramienta open-source de preprocesamiento que podría integrarse en plataformas de telemedicina, democratizando el acceso a diagnósticos precisos en contextos con recursos limitados.
+Pneumonia diagnosis through X-rays is affected by technical limitations. This project develops an open-source preprocessing tool that could be integrated into telemedicine platforms, democratizing access to accurate diagnoses in resource-limited contexts.
 
-**Preguntas clave:**
-1. ¿Puede nuestro pipeline clasificar radiografías como normal/neumonía con precisión efectiva?
-2. ¿Cuál es la probabilidad de neumonía dada una radiografía filtrada?
-3. ¿Cuál es la sensibilidad de nuestro clasificador tras el preprocesamiento?
+**Key Questions:**
+1. Can our pipeline classify X-rays as normal/pneumonia with effective accuracy?
+2. What is the probability of pneumonia given a filtered X-ray?
+3. What is the sensitivity of our classifier after preprocessing?
 
-### 5. 🌐 Descripción del Conjunto de Datos
+### 5. 🌐 Dataset Description
 
-**Nombre:** Chest X-Ray Images (Pneumonia)  
-**Fuente:** [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia)  
-**Tamaño:** 5,856 imágenes (1.24GB)  
-**Formato:** JPEG  
-**Estructura del Dataset:**
+**Name:** Chest X-Ray Images (Pneumonia)  
+**Source:** [Kaggle](https://www.kaggle.com/paultimothymooney/chest-xray-pneumonia)  
+**Size:** 5,856 images (1.24GB)  
+**Format:** JPEG  
+**Dataset Structure:**
 ```
 Dataset/
 └── chest_xray/
     ├── test/
-    │   ├── NORMAL/          # 234 imágenes de pulmones sanos
-    │   └── PNEUMONIA/       # 390 imágenes con neumonía
+    │   ├── NORMAL/          # 234 healthy lung images
+    │   └── PNEUMONIA/       # 390 pneumonia images
     ├── train/
-    │   ├── NORMAL/          # 1,341 imágenes de pulmones sanos
-    │   └── PNEUMONIA/       # 3,875 imágenes con neumonía
+    │   ├── NORMAL/          # 1,341 healthy lung images
+    │   └── PNEUMONIA/       # 3,875 pneumonia images
     └── val/
-        ├── NORMAL/          # 8 imágenes de pulmones sanos
-        └── PNEUMONIA/       # 8 imágenes con neumonía
+        ├── NORMAL/          # 8 healthy lung images
+        └── PNEUMONIA/       # 8 pneumonia images
 ```
 
-**Distribución de Clases:**
-- **NORMAL:** 1,583 imágenes (pulmones sanos)
-- **PNEUMONIA:** 4,273 imágenes (neumonía bacteriana y viral)
-- **Total:** 5,856 imágenes
+**Class Distribution:**
+- **NORMAL:** 1,583 images (healthy lungs)
+- **PNEUMONIA:** 4,273 images (bacterial and viral pneumonia)
+- **Total:** 5,856 images
 
-**División del Dataset:**
-- **Train:** 5,216 imágenes (89.1%)
-- **Test:** 624 imágenes (10.7%)
-- **Validation:** 16 imágenes (0.3%)
+**Dataset Split:**
+- **Train:** 5,216 images (89.1%)
+- **Test:** 624 images (10.7%)
+- **Validation:** 16 images (0.3%)
 
-### 6. ▶️ Modelización
+### 6. ▶️ Modeling
 
-#### 6.1 Modelo Clásico
+#### 6.1 Classical Model
 
-**Preprocesamiento:**
-1. Filtro Gaussiano para reducción de ruido
-2. Filtro Mediano 3×3 para eliminar "ruido sal y pimienta"
-3. Umbralización global para segmentación
-4. Operaciones morfológicas para refinamiento
+**Preprocessing:**
+1. Gaussian filter for noise reduction
+2. 3×3 Median filter to eliminate "salt and pepper noise"
+3. Global thresholding for segmentation
+4. Morphological operations for refinement
 
-**Clasificación:** SVM lineal o Regresión Logística
+**Classification:** Linear SVM or Logistic Regression
 
-#### 6.2 Modelo de Aprendizaje Profundo
+#### 6.2 Deep Learning Model
 
-**Arquitectura:** DenseNet-121 preentrenada  
-**Preprocesamiento:**
-- Redimensionado a 224×224 px
-- Data augmentation (rotaciones, flips, ajustes de brillo)
-- Normalización según ImageNet
+**Architecture:** Pretrained DenseNet-121  
+**Preprocessing:**
+- Resizing to 224×224 px
+- Data augmentation (rotations, flips, brightness adjustments)
+- ImageNet normalization
 
-**Entrenamiento:**
-- Fine-tuning con Adam (lr=1×10⁻⁴)
-- Binary cross-entropy como función de pérdida
-- 20 epochs con batch size 16
+**Training:**
+- Fine-tuning with Adam (lr=1×10⁻⁴)
+- Binary cross-entropy as loss function
+- 20 epochs with batch size 16
 
-#### 6.3 Respuesta a las Preguntas
+#### 6.3 Answering the Questions
 
-1. **Precisión:** Calculada mediante matriz de confusión (TP+TN)/Total
-2. **Probabilidad:** predict_proba() para modelo clásico, salida sigmoide para DenseNet
-3. **Sensibilidad:** TP/(TP+FN) a partir de matriz de confusión
+1. **Accuracy:** Calculated using confusion matrix (TP+TN)/Total
+2. **Probability:** predict_proba() for classical model, sigmoid output for DenseNet
+3. **Sensitivity:** TP/(TP+FN) from confusion matrix
 
-### 7. 📊 Publicación de Resultados
+### 7. 📊 Results Publication
 
-#### 7.1 Modelo Clásico
+#### 7.1 Classical Model
 
-Esta sección detalla los resultados obtenidos de la implementación del primer enfoque para la clasificación de radiografías de tórax en "NORMAL" o "NEUMONÍA". Se evaluaron dos modelos de clasificación tradicionales, Support Vector Machine (SVM) lineal y Regresión Logística, después de un riguroso proceso de preprocesamiento y extracción de características de las imágenes.
+This section details the results obtained from implementing the first approach for classifying chest X-rays as "NORMAL" or "PNEUMONIA". Two traditional classification models were evaluated: linear Support Vector Machine (SVM) and Logistic Regression, after a rigorous preprocessing and feature extraction process.
 
-**Métricas de Evaluación:**
-- **Exactitud (Accuracy):** Proporción de predicciones correctas sobre el total
-- **Precisión (Precision):** De todas las instancias predichas como positivas, cuántas fueron realmente positivas
-- **Sensibilidad (Recall):** De todas las instancias realmente positivas, cuántas fueron correctamente identificadas
-- **Puntuación F1 (F1-Score):** Media armónica de la precisión y la sensibilidad
-- **Área bajo la curva ROC (AUC-ROC):** Capacidad del modelo para distinguir entre clases
-- **Matriz de Confusión:** Tabla detallada de verdaderos positivos, negativos, falsos positivos y negativos
+**Evaluation Metrics:**
+- **Accuracy:** Proportion of correct predictions over total
+- **Precision:** Of all instances predicted as positive, how many were actually positive
+- **Sensitivity (Recall):** Of all actually positive instances, how many were correctly identified
+- **F1-Score:** Harmonic mean of precision and sensitivity
+- **Area Under ROC Curve (AUC-ROC):** Model's ability to distinguish between classes
+- **Confusion Matrix:** Detailed table of true positives, negatives, false positives and negatives
 
-**Resultados:**
-El modelo SVM obtuvo un rendimiento marginalmente superior en la mayoría de las métricas clave para la detección de neumonía, alcanzando una precisión del 69% comparado con el 68% de la regresión logística.
+**Results:**
+The SVM model obtained marginally superior performance in most key metrics for pneumonia detection, achieving 69% precision compared to 68% for logistic regression.
 
-#### 7.2 Modelo de Aprendizaje Profundo
+#### 7.2 Deep Learning Model
 
-En este segundo enfoque, se implementó un modelo de aprendizaje profundo basado en la arquitectura DenseNet-121, utilizando la técnica de aprendizaje por transferencia. Para combatir el sesgo observado en los modelos clásicos, se aplicó una estrategia de pesos de clase en la función de pérdida, penalizando más duramente los errores en la clasificación de PNEUMONIA.
+In this second approach, a deep learning model based on DenseNet-121 architecture was implemented, using transfer learning technique. To combat the bias observed in classical models, a class weight strategy was applied in the loss function, penalizing PNEUMONIA classification errors more heavily.
 
-El modelo fue entrenado durante 30 épocas, demostrando un aprendizaje estable y una mejora significativa en el rendimiento. La evaluación final se realizó sobre el mismo conjunto de prueba de 624 imágenes para una comparación directa y justa.
+The model was trained for 30 epochs, demonstrating stable learning and significant performance improvement. Final evaluation was performed on the same test set of 624 images for direct and fair comparison.
 
-**Resultados Destacados:**
-- **Rendimiento General:** Exactitud del 86.5% y AUC-ROC de 0.9377
-- **Detección de Neumonía:** Sensibilidad del 87.2% para la clase PNEUMONIA
-- **Fiabilidad:** Precisión del 90.9% para PNEUMONIA con F1-Score de 0.89
+**Outstanding Results:**
+- **Overall Performance:** 86.5% accuracy and 0.9377 AUC-ROC
+- **Pneumonia Detection:** 87.2% sensitivity for PNEUMONIA class
+- **Reliability:** 90.9% precision for PNEUMONIA with 0.89 F1-Score
 
-#### 7.3 Respuesta de Nuestros Modelos a las Preguntas
+#### 7.3 Our Models' Response to the Questions
 
-**¿Puede nuestro pipeline clasificar una radiografía de tórax como normal o neumonía con una precisión efectiva?**
+**Can our pipeline classify a chest X-ray as normal or pneumonia with effective accuracy?**
 
-- **Modelo Clásico:** El modelo SVM alcanzó una precisión general del 69%
-- **Modelo de Aprendizaje Profundo:** El modelo DenseNet-121 logró una precisión general del 86.5%
+- **Classical Model:** SVM model achieved 69% overall accuracy
+- **Deep Learning Model:** DenseNet-121 model achieved 86.5% overall accuracy
 
-**¿Cuál es la probabilidad de que un paciente tenga neumonía dada su radiografía filtrada?**
+**What is the probability that a patient has pneumonia given their filtered X-ray?**
 
-- **Modelo Clásico:** AUC-ROC de 0.55, indicando capacidad de discriminación limitada
-- **Modelo de Aprendizaje Profundo:** AUC-ROC de 0.9377, demostrando capacidad sobresaliente
+- **Classical Model:** 0.55 AUC-ROC, indicating limited discrimination capability
+- **Deep Learning Model:** 0.9377 AUC-ROC, demonstrating outstanding capability
 
-**¿Cuál es la sensibilidad de nuestro clasificador normal o neumonía tras aplicar el preprocesamiento?**
+**What is the sensitivity of our normal or pneumonia classifier after applying preprocessing?**
 
-- **Modelo Clásico:** Sensibilidad del 100% pero con alta tasa de falsos positivos
-- **Modelo de Aprendizaje Profundo:** Sensibilidad del 87.2% con excelente balance
+- **Classical Model:** 100% sensitivity but with high false positive rate
+- **Deep Learning Model:** 87.2% sensitivity with excellent balance
 
-### 8. ⚜️ Conclusiones
+### 8. ⚜️ Conclusions
 
-El estudio demostró que, si bien las técnicas tradicionales ofrecen una base de clasificación, los modelos de aprendizaje profundo proporcionan una solución significativamente más robusta y precisa para la detección de neumonía. El modelo DenseNet-121 superó de manera concluyente al modelo clásico (SVM), aumentando la exactitud general del 69% al 86.5%.
+The study demonstrated that while traditional techniques offer a classification baseline, deep learning models provide a significantly more robust and accurate solution for pneumonia detection. The DenseNet-121 model conclusively outperformed the classical model (SVM), increasing overall accuracy from 69% to 86.5%.
 
-Más importante aún, la sensibilidad para detectar casos de neumonía —la métrica más crítica en un contexto clínico— saltó de un nivel modesto a un excelente 87.2%, demostrando la clara superioridad del enfoque de deep learning para esta tarea.
+More importantly, the sensitivity for detecting pneumonia cases —the most critical metric in a clinical context— jumped from a modest level to an excellent 87.2%, demonstrating the clear superiority of the deep learning approach for this task.
 
-La implementación de esta solución se realizó utilizando herramientas de código abierto y en un entorno Google Colab que simula condiciones de recursos accesibles. El alto rendimiento y la fiabilidad del modelo DenseNet-121 final, con un AUC-ROC de 0.9377, validan su gran potencial para ser integrado en plataformas de telemedicina reales.
+The implementation of this solution was carried out using open-source tools and in a Google Colab environment that simulates accessible resource conditions. The high performance and reliability of the final DenseNet-121 model, with an AUC-ROC of 0.9377, validates its great potential to be integrated into real telemedicine platforms.
 
-El análisis comparativo de los modelos no mostró un rendimiento complementario, sino que reveló una mejor propuesta. El modelo DenseNet-121, tras ser optimizado con pesos de clase para corregir el sesgo de los datos, se consolidó como la herramienta definitiva. Su capacidad para identificar correctamente al 87.2% de los pacientes con neumonía, manteniendo al mismo tiempo una alta precisión del 90.9%, lo posiciona como un poderoso sistema de apoyo para el personal médico, capaz de agilizar el pre-diagnóstico y mejorar la atención en entornos clínicos.
+The comparative analysis of the models did not show complementary performance, but rather revealed a better proposal. The DenseNet-121 model, after being optimized with class weights to correct data bias, consolidated as the definitive tool. Its ability to correctly identify 87.2% of patients with pneumonia, while maintaining high precision of 90.9%, positions it as a powerful support system for medical staff, capable of streamlining pre-diagnosis and improving care in clinical environments.
 
-### 9. 🔆 Referencias Bibliográficas
+### 9. 🔆 Bibliographic References
 
 1. Mooney, P. (2018). Chest X-Ray Images (Pneumonia). Kaggle. https://www.kaggle.com/datasets/paultimothymooney/chest-xray-pneumonia
 2. Litjens, G., et al. (2017). A survey on deep learning in medical image analysis. Medical Image Analysis, 42, 60–88. https://doi.org/10.1016/j.media.2017.07.005
-3. Organización Mundial de la Salud. (2023). Neumonía. https://www.who.int/es/news-room/fact-sheets/detail/pneumonia
+3. World Health Organization. (2023). Pneumonia. https://www.who.int/es/news-room/fact-sheets/detail/pneumonia
